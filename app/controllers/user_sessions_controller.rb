@@ -5,7 +5,7 @@ class UserSessionsController < ApplicationController
 
   def create
     if @user = login(params[:email], params[:password])
-      redirect_back_or_to api_properties_path
+      redirect_back_or_to root_path
     else
       render :new
     end
