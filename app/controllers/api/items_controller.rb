@@ -1,13 +1,10 @@
 class Api::ItemsController < ApplicationController
+  skip_before_action :verify_authenticity_token
   before_action :set_item, only: [:show, :update, :destroy]
 
   def index
     @items = Item.all
     render json: @items
-  end
-
-  def show
-    render json: @item
   end
 
   def create
@@ -17,6 +14,10 @@ class Api::ItemsController < ApplicationController
     else
       render json: @item.errors, status: :bad_request
     end
+  end
+
+  def show
+    render json: @item
   end
 
   def update

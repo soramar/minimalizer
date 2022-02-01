@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :users, only: [:new, :create]
+  root to: 'home#index'
   
   get 'login', to: 'user_sessions#new' 
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
 
-  root to: 'home#index'
+  resources :users, only: [:new, :create]
   
-  namespace :api do
-    resources :items
+  namespace :api, {format: 'json'} do
+    resources :items, only: [:index, :create, :show, :update, :destroy]
   end
   
  get '*path', to: 'home#index'
