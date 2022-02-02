@@ -11,8 +11,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import router from '../router'
 import axios from '../plugins/axios'
 
+
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
+Vue.use(require('vue-moment'));
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({

@@ -5,10 +5,20 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ item.name }}</h5>
-            <button type="button" class="close" @click="handleCloseModal">
-              <span>&times;</span>
-            </button>
           </div>
+
+          <div class="modal-body" v-if="item.purchase_date">
+            <h5>{{ item.purchase_date | moment("YYYY年MM月DD日") }}</h5>
+          </div>
+
+          <div class="modal-body" v-if="item.price">
+            <h5>{{ item.price }}円</h5>
+          </div>
+
+          <div class="modal-body" v-if="item.description">
+            <h5>{{ item.description }}</h5>
+          </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
           </div>
@@ -27,6 +37,17 @@ export default {
       name: {
         type: String,
         required: true
+      },
+      purchase_date: {
+        type: Date,
+        required: true
+      },
+      price: {
+        type: Number,
+        required: true
+      },
+      description: {
+        type: String
       }
     }
   },

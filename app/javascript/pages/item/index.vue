@@ -38,6 +38,30 @@
                 class="form-control"
                 id="name">
             </div>
+            <div class="form-group">
+              <label for="purchase_date">購入日</label>
+              <input
+                v-model="purchase_date"
+                type="date"
+                class="form-control"
+                id="purchase_date">
+            </div>
+            <div class="form-group">
+              <label for="price">金額</label>
+              <input
+                v-model="price"
+                type="number"
+                class="form-control"
+                id="price">
+            </div>
+            <div class="form-group">
+              <label for="description">備考</label>
+              <input
+                v-model="description"
+                type="textarea"
+                class="form-control"
+                id="description">
+            </div>
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
               @click="handleCreateItem">追加</button>
@@ -55,17 +79,16 @@
 
 <script>
   import ItemDetailModal from "./components/ItemDetailModal"
-  import ItemCreateModal from "./components/ItemCreateModal"
 
 export default {
   name: "ItemIndex",
   components: {
-    ItemDetailModal,
-    ItemCreateModal
+    ItemDetailModal
   },
   data() {
     return {
       items: [],
+
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false
@@ -85,7 +108,10 @@ export default {
 
     handleCreateItem() {
       this.$axios.post('/items', {
-        name: this.name
+        name: this.name,
+        purchase_date: this.purchase_date,
+        price: this.price,
+        description: this.description
       })
       .then(res => 
         this.items.push(res.data),

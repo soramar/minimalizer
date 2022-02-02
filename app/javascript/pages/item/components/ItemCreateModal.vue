@@ -1,6 +1,6 @@
 <template>
   <div id="item-create-modal">
-    <div class="modal" @click.self="$emit('close-modal')">
+    <div class="modal" @click.self="handleCloseModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
@@ -12,9 +12,34 @@
                 class="form-control"
                 id="name">
             </div>
+            <div class="form-group">
+              <label for="purchase_date">購入日</label>
+              <input
+                v-model="purchase_date"
+                type="date"
+                class="form-control"
+                id="purchase_date">
+            </div>
+            <div class="form-group">
+              <label for="price">金額</label>
+              <input
+                v-model="price"
+                type="number"
+                class="form-control"
+                id="price">
+            </div>
+            <div class="form-group">
+              <label for="description">備考</label>
+              <textarea
+                v-model="description"
+                type="string"
+                class="form-control"
+                id="description">
+              </textarea>
+            </div>
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
-              @click="$emit('crete-item', name)">追加</button>
+              @click="handleCreateItem">追加</button>
               <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
             </div>
           </div>
@@ -31,16 +56,26 @@ export default {
   data() {
     return {
       item: {
-        name: ''
+        name: '',
+        purchase_date: '',
+        price: '',
+        description: ''
       }
     }
   },
   methods: {
-    
+    handleCloseModal() {
+      this.$emit('close-modal')
+    },
+    handleCreateItem() {
+      this.$emit('create-item', this.item)
+    }
   }
 }
 </script>
 
 <style scoped>
-
+.modal {
+  display: block;
+}
 </style>
