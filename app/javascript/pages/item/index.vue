@@ -10,6 +10,7 @@
           class="bg-white border shadow-sm rounded my-2 p-4"
           @click="handleShowItemDetailModal(item)">
           <span>{{ item.name }}</span>
+
         </div>
         <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
       </div>
@@ -17,13 +18,16 @@
     <div class="text-center">
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
   </div>
+
+<!--詳細・更新モーダル-->
   <transition name="fade">
-      <ItemDetailModal 
+    <ItemDetailModal 
       v-if="isVisibleItemDetailModal"
       :item="itemDetail"
        @close-modal="handleCloseItemDetailModal" />
   </transition>
 
+<!--登録モーダル-->
   <transition name="fade">
     <div id="item-create-modal" v-if="isVisibleItemCreateModal">
     <div class="modal" @click.self="handleCloseItemCreateModal">
@@ -31,13 +35,14 @@
         <div class="modal-content">
           <div class="modal-body">
             <div class="form-group">
-              <label for="name">タイトル</label>
+              <label for="name">名前</label>
               <input
                 v-model="name"
                 type="text"
                 class="form-control"
                 id="name">
             </div>
+
             <div class="form-group">
               <label for="purchase_date">購入日</label>
               <input
@@ -46,6 +51,7 @@
                 class="form-control"
                 id="purchase_date">
             </div>
+
             <div class="form-group">
               <label for="price">金額</label>
               <input
@@ -54,6 +60,7 @@
                 class="form-control"
                 id="price">
             </div>
+
             <div class="form-group">
               <label for="description">備考</label>
               <input
@@ -62,6 +69,7 @@
                 class="form-control"
                 id="description">
             </div>
+
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
               @click="handleCreateItem">追加</button>
@@ -78,7 +86,7 @@
 </template>
 
 <script>
-  import ItemDetailModal from "./components/ItemDetailModal"
+import ItemDetailModal from "./components/ItemDetailModal"
 
 export default {
   name: "ItemIndex",
@@ -88,7 +96,6 @@ export default {
   data() {
     return {
       items: [],
-
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false
@@ -140,7 +147,7 @@ export default {
 </script>
 
 <style scoped>
-  .fade-enter-active, .fade-leave-active {
+ .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
 .fade-enter, .fade-leave-to {
