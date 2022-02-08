@@ -3,14 +3,19 @@
     <div class="d-flex">
       <div class="col-4 bg-light rounded shadow m-3 p-3">
         <div class="h4">TODO</div>
-        <div
-          v-for="item in items"
-          :key="item.id"
-          :id="'item-' + item.id"
-          class="bg-white border shadow-sm rounded my-2 p-4"
-          @click="handleShowItemDetailModal(item)">
-          <span>{{ item.name }}</span>
-
+        <div class="item-content">
+          <div
+            v-for="item in items" :key="item.id" :id="'item-' + item.id"
+            class="bg-white border shadow-sm rounded my-2 p-4"
+            @click="handleShowItemDetailModal(item)"
+            :disabled="isShowAuthenticity">
+            <span>{{ item.name }}</span>
+              <button class="btn btn-secondary" id="item-delete"
+              @mouseover="cursorOnDelete"
+              @click="handleDeleteItem(item.id)">削除</button>
+          
+          </div>
+          
         </div>
         <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
       </div>
@@ -24,7 +29,8 @@
     <ItemDetailModal 
       v-if="isVisibleItemDetailModal"
       :item="itemDetail"
-       @close-modal="handleCloseItemDetailModal" />
+      @close-modal="handleCloseItemDetailModal"
+      @put-item="handleCreateItem" />
   </transition>
 
 <!--登録モーダル-->
@@ -36,40 +42,20 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="name">名前</label>
-              <input
-                v-model="name"
-                type="text"
-                class="form-control"
-                id="name">
+              <input v-model="name" type="text" class="form-control" id="name">
             </div>
-
             <div class="form-group">
               <label for="purchase_date">購入日</label>
-              <input
-                v-model="purchase_date"
-                type="date"
-                class="form-control"
-                id="purchase_date">
+              <input v-model="purchase_date" type="date" id="purchase_date" class="form-control" >
             </div>
-
             <div class="form-group">
               <label for="price">金額</label>
-              <input
-                v-model="price"
-                type="number"
-                class="form-control"
-                id="price">
+              <input v-model="price" type="number" id="price" class="form-control">
             </div>
-
             <div class="form-group">
               <label for="description">備考</label>
-              <input
-                v-model="description"
-                type="textarea"
-                class="form-control"
-                id="description">
+              <input v-model="description" type="textarea" id="description" class="form-control">
             </div>
-
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
               @click="handleCreateItem">追加</button>
@@ -98,7 +84,8 @@ export default {
       items: [],
       itemDetail: {},
       isVisibleItemDetailModal: false,
-      isVisibleItemCreateModal: false
+      isVisibleItemCreateModal: false,
+      isShowAuthenticity: true
     }
   },
 
@@ -108,13 +95,13 @@ export default {
 
   methods: {
     fetchItems() {
-      this.$axios.get("/items")
+      this.$axios.get("items")
         .then(res => this.items = res.data)
         .catch(err => console.log(err.status));
     },
 
     handleCreateItem() {
-      this.$axios.post('/items', {
+      this.$axios.post('items', {
         name: this.name,
         purchase_date: this.purchase_date,
         price: this.price,
@@ -125,6 +112,17 @@ export default {
         this.handleCloseItemCreateModal()
       )
       .catch(error => console.log(error))     
+    },
+
+    handleDeleteItem(id) {
+      this.$axios.delete('items/' + id)
+        .then(res => this.items = res.data)
+        .catch(err => console.log(err.status));
+    },
+
+    cursorOnDelete() {
+      isShowAuthenticity = false;
+      
     },
 
     handleShowItemDetailModal(item) {

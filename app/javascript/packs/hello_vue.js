@@ -10,8 +10,9 @@ import App from '../app.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import router from '../router'
 import axios from '../plugins/axios'
+import vuetify from 'vuetify'
 
-
+Vue.use(vuetify)
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.use(require('vue-moment'));

@@ -29,7 +29,7 @@ class Api::ItemsController < ApplicationController
   end
 
   def destroy
-    @item.destroy!
+    @item.destroy
     render json: @item
   end
 
