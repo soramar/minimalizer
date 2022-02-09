@@ -7,15 +7,10 @@
           <div
             v-for="item in items" :key="item.id" :id="'item-' + item.id"
             class="bg-white border shadow-sm rounded my-2 p-4"
-            @click="handleShowItemDetailModal(item)"
-            :disabled="isShowAuthenticity">
+            @click="handleShowItemDetailModal(item)">
             <span>{{ item.name }}</span>
-              <button class="btn btn-secondary" id="item-delete"
-              @mouseover="cursorOnDelete"
-              @click="handleDeleteItem(item.id)">削除</button>
-          
+            
           </div>
-          
         </div>
         <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
       </div>
@@ -29,8 +24,9 @@
     <ItemDetailModal 
       v-if="isVisibleItemDetailModal"
       :item="itemDetail"
+      @delete-item="handleDeleteItem"
       @close-modal="handleCloseItemDetailModal"
-      @put-item="handleCreateItem" />
+       />
   </transition>
 
 <!--登録モーダル-->
@@ -85,7 +81,6 @@ export default {
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false,
-      isShowAuthenticity: true
     }
   },
 
@@ -105,24 +100,17 @@ export default {
         name: this.name,
         purchase_date: this.purchase_date,
         price: this.price,
-        description: this.description
-      })
-      .then(res => 
-        this.items.push(res.data),
-        this.handleCloseItemCreateModal()
-      )
+        description: this.description})
+      .then(res => this.items.push(res.data),
+        this.handleCloseItemCreateModal())
       .catch(error => console.log(error))     
     },
 
     handleDeleteItem(id) {
       this.$axios.delete('items/' + id)
-        .then(res => this.items = res.data)
-        .catch(err => console.log(err.status));
-    },
-
-    cursorOnDelete() {
-      isShowAuthenticity = false;
-      
+      .then(res => this.items.push(res.data),
+      this.handleCloseItemDetailModal())
+      .catch(err => console.log(err.status));
     },
 
     handleShowItemDetailModal(item) {

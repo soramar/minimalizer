@@ -6,11 +6,9 @@
           <div class="modal-header">
             <div class="form-group">
               <label for="name">名前</label>
-              
               <h5>{{ item.name }}</h5>
             </div>
           </div>
-
           <div class="modal-body" v-if="item.purchase_date">
             <label for="purchase_date">購入日</label>
             <h5>{{ item.purchase_date | moment("YYYY年MM月DD日") }}</h5>
@@ -27,6 +25,7 @@
           </div>
 
           <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" @click="handleDeleteItem">削除</button>
             <button type="button" class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
           </div>
         </div>
@@ -41,6 +40,10 @@ export default {
   name: "ItemDetailModal",
   props: {
     item: {
+      id: {
+        id: Number,
+        required: true
+      },
       name: {
         type: String,
         required: true
@@ -61,6 +64,10 @@ export default {
   methods: {
     handleCloseModal() {
       this.$emit('close-modal')
+    },
+
+    handleDeleteItem() {
+      this.$emit('delete-item', this.item.id);
     }
   }
 }
