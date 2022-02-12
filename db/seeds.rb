@@ -7,8 +7,12 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 5.times do |n|
-  name = "seed_data#{n}"
+  name = "seed_data0#{n}",
+  price = "#{n}00",
+  description = "備考0#{n}"
   Item.create(
-    name: name
+    name: name,
+    price: price,
+    description: description
   )
 end

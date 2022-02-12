@@ -25,8 +25,8 @@
       v-if="isVisibleItemDetailModal"
       :item="itemDetail"
       @delete-item="handleDeleteItem"
-      @close-modal="handleCloseItemDetailModal"
-       />
+      @update-item="handleUpdateItem"
+      @close-modal="handleCloseItemDetailModal"/>
   </transition>
 
 <!--登録モーダル-->
@@ -95,7 +95,7 @@ export default {
         .catch(err => console.log(err.status));
     },
 
-    handleCreateItem() {
+    handleUpdateItem() {
       this.$axios.post('items', {
         name: this.name,
         purchase_date: this.purchase_date,
@@ -106,10 +106,23 @@ export default {
       .catch(error => console.log(error))     
     },
 
+    handleUpdateItem(id, item) {
+      this.$axios.patch('items/' + id, {
+        item
+      })
+      .then(res => this.items(res.data),
+        this.handleCloseItemDetailModal())
+      .catch(error => console.log(error)) 
+    },
+
     handleDeleteItem(id) {
-      this.$axios.delete('items/' + id)
-      .then(res => this.items.push(res.data),
-      this.handleCloseItemDetailModal())
+      this.$axios.delete('items/' + id, {
+        name: this.name,
+        purchase_date: this.purchase_date,
+        price: this.price,
+        description: this.description})
+      .then(res => this.items(res.data),
+        this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));
     },
 
