@@ -6,22 +6,21 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="name">タイトル</label>
-              <input v-model="name" type="text" class="form-control" id="name">
+              <input v-model="item.name" type="text" class="form-control"
+               id="name">
             </div>
             <div class="form-group">
               <label for="purchase_date">購入日</label>
-
-              <datepicker :format="DatePickerFormat" :bootstrap-styling="true" :language="ja" placeholder="日付を選択してください"></datepicker>
-
-              <input v-model="purchase_date" type="date" class="form-control" id="purchase_date">
+              <input v-model="item.purchase_date" type="date"
+              class="form-control" id="name">
             </div>
             <div class="form-group">
               <label for="price">金額</label>
-              <input v-model="price" type="number" class="form-control" id="price">
+              <input v-model="item.price" type="number" class="form-control" id="price">
             </div>
             <div class="form-group">
               <label for="description">備考</label>
-              <textarea v-model="description" type="string" class="form-control" id="description">
+              <textarea v-model="item.description" type="string" class="form-control" id="description">
               </textarea>
             </div>
             <div class="d-flex justify-content-between">
@@ -42,9 +41,15 @@ export default {
   name: "ItemCreateModal",
   data() {
     return {
-      item: {}
-    }
+      item: {
+        name: '',
+        purchase_date: '',
+        price: '',
+        description: ''
+     }
+   }
   },
+
   methods: {
     handleCloseModal() {
       this.$emit('close-modal')

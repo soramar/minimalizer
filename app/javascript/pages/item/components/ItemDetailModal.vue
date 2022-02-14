@@ -104,7 +104,7 @@ export default {
     },
 
     handleDeleteItem() {
-      this.$emit('delete-item', this.item.id)
+      this.$emit('delete-item', this.item.id, this.item)
     },
 
     handleUpdateItem() {

@@ -31,49 +31,23 @@
 
 <!--登録モーダル-->
   <transition name="fade">
-    <div id="item-create-modal" v-if="isVisibleItemCreateModal">
-    <div class="modal" @click.self="handleCloseItemCreateModal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="name">名前</label>
-              <input v-model="name" type="text" class="form-control" id="name">
-            </div>
-            <div class="form-group">
-              <label for="purchase_date">購入日</label>
-              <input v-model="purchase_date" type="date" id="purchase_date" class="form-control" >
-            </div>
-            <div class="form-group">
-              <label for="price">金額</label>
-              <input v-model="price" type="number" id="price" class="form-control">
-            </div>
-            <div class="form-group">
-              <label for="description">備考</label>
-              <input v-model="description" type="textarea" id="description" class="form-control">
-            </div>
-            <div class="d-flex justify-content-between">
-              <button class="btn btn-success" 
-              @click="handleCreateItem">追加</button>
-              <button class="btn btn-secondary" @click="handleCloseItemCreateModal">閉じる</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-backdrop show"></div>
-  </div>
+    <ItemCreateModal
+        v-if="isVisibleItemCreateModal"
+        @close-modal="handleCloseItemCreateModal"
+        @create-item="handleCreateItem"/>
   </transition>
  </div>
 </template>
 
 <script>
 import ItemDetailModal from "./components/ItemDetailModal"
+import ItemCreateModal from "./components/ItemCreateModal"
 
 export default {
   name: "ItemIndex",
   components: {
-    ItemDetailModal
+    ItemDetailModal,
+    ItemCreateModal
   },
   data() {
     return {
@@ -95,32 +69,22 @@ export default {
         .catch(err => console.log(err.status));
     },
 
-    handleUpdateItem() {
-      this.$axios.post('items', {
-        name: this.name,
-        purchase_date: this.purchase_date,
-        price: this.price,
-        description: this.description})
-      .then(res => this.items.push(res.data),
+    handleCreateItem(item) {
+      this.$axios.post('items', item )
+              .then(res => this.items.push(res.data),
         this.handleCloseItemCreateModal())
       .catch(error => console.log(error))     
     },
 
     handleUpdateItem(id, item) {
-      this.$axios.patch('items/' + id, {
-        item
-      })
+      this.$axios.patch('items/' + id, item)
       .then(res => this.items(res.data),
         this.handleCloseItemDetailModal())
       .catch(error => console.log(error)) 
     },
 
-    handleDeleteItem(id) {
-      this.$axios.delete('items/' + id, {
-        name: this.name,
-        purchase_date: this.purchase_date,
-        price: this.price,
-        description: this.description})
+    handleDeleteItem(id, item) {
+      this.$axios.delete('items/' + id, item)
       .then(res => this.items(res.data),
         this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));
