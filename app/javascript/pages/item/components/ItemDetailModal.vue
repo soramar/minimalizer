@@ -55,7 +55,8 @@
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
               @click="handleUpdateItem">更新</button>
-              <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
+              <button class="btn btn-secondary" @click="handleCloseModal">
+                閉じる</button>
             </div>
           </div>
         </div>
@@ -78,7 +79,6 @@ export default {
 
   props: {
     item: {
-      
       name: {
         type: String,
         required: true
@@ -102,18 +102,16 @@ export default {
     handleCloseModal() {
       this.$emit('close-modal')
     },
-
+    handleShowUpdateModal() {
+      this.isVisibleItemDetailOnModal = false;
+      this.isVisibleItemUpdateModal = true;
+    },
     handleDeleteItem() {
       this.$emit('delete-item', this.item.id, this.item)
     },
 
     handleUpdateItem() {
       this.$emit('update-item', this.item.id, this.item)
-    },
-
-    handleShowUpdateModal() {
-      this.isVisibleItemDetailOnModal = false;
-      this.isVisibleItemUpdateModal = true;
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
- <div>
+  <div>
     <div class="d-flex">
       <div class="col-4 bg-light rounded shadow m-3 p-3">
         <div class="h4">TODO</div>
@@ -9,7 +9,6 @@
             class="bg-white border shadow-sm rounded my-2 p-4"
             @click="handleShowItemDetailModal(item)">
             <span>{{ item.name }}</span>
-            
           </div>
         </div>
         <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
@@ -19,7 +18,6 @@
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
   </div>
 
-<!--詳細・更新モーダル-->
   <transition name="fade">
     <ItemDetailModal 
       v-if="isVisibleItemDetailModal"
@@ -29,7 +27,6 @@
       @close-modal="handleCloseItemDetailModal"/>
   </transition>
 
-<!--登録モーダル-->
   <transition name="fade">
     <ItemCreateModal
         v-if="isVisibleItemCreateModal"

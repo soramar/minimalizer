@@ -26,7 +26,8 @@
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
               @click="handleCreateItem">追加</button>
-              <button class="btn btn-secondary" @click="handleCloseModal">閉じる</button>
+              <button class="btn btn-secondary" @click="handleCloseModal">
+                閉じる</button>
             </div>
           </div>
         </div>
