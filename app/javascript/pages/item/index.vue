@@ -71,21 +71,21 @@ export default {
 
     handleCreateItem(item) {
       this.$axios.post('items', item )
-              .then(res => this.items.push(res.data),
+              .then(res => this.fetchItems(res.data),
         this.handleCloseItemCreateModal())
       .catch(error => console.log(error))     
     },
 
     handleUpdateItem(id, item) {
       this.$axios.patch('items/' + id, item)
-      .then(res => this.items(res.data),
+      .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(error => console.log(error)) 
     },
 
     handleDeleteItem(id, item) {
       this.$axios.delete('items/' + id, item)
-      .then(res => this.items(res.data),
+      .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));
     },

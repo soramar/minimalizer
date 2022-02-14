@@ -75,12 +75,10 @@ export default {
       isVisibleItemUpdateModal: false
     }
   },
+
   props: {
     item: {
-      id: {
-        id: Number,
-        required: true
-      },
+      
       name: {
         type: String,
         required: true
@@ -94,10 +92,12 @@ export default {
         required: true
       },
       description: {
-        type: String
+        type: String,
+        required: true
       }
     }
   },
+  
   methods: {
     handleCloseModal() {
       this.$emit('close-modal')
