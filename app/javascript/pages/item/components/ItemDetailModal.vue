@@ -10,6 +10,10 @@
               <h5>{{ item.name }}</h5>
             </div>
           </div>
+          <div class="modal-body" v-if="item.category">
+            <label for="category">カテゴリー</label>
+            <h5>{{ item.category }}</h5>
+          </div>
           <div class="modal-body" v-if="item.purchase_date">
             <label for="purchase_date">購入日</label>
             <h5>{{ item.purchase_date | moment("YYYY年MM月DD日") }}</h5>
@@ -37,6 +41,16 @@
             <div class="form-group">
               <label for="name">タイトル</label>
               <input v-model="item.name" type="text" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+              <label for="category">カテゴリー</label>
+              <div class="category-nav">
+                <select class="select-category" v-model="item.category" >
+                  <option>ファッション</option>
+                  <option>家具</option>
+                  <option>貴重品</option>
+                </select>
+              </div>
             </div>
             <div class="form-group">
               <label for="purchase_date">購入日</label>
@@ -80,6 +94,10 @@ export default {
   props: {
     item: {
       name: {
+        type: String,
+        required: true
+      },
+      category: {
         type: String,
         required: true
       },
