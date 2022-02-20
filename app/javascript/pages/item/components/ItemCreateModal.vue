@@ -10,20 +10,17 @@
                id="name">
             </div>
 
-            <!--カテゴリーフォーム-->
             <div class="form-group">
               <label for="category">カテゴリー</label>
               <div class="category-nav">
                 <select class="select-category" v-model="item.category" >
-                  <option>ファッション</option>
-                  <option>家具</option>
-                  <option>貴重品</option>
+                  <option value="clothes">服</option>
+                  <option value="furniture">家具</option>
+                  <option value="valuables">貴重品</option>
                 </select>
               </div>
             </div>
-              <!--ここまで-->
 
-            
             <div class="form-group">
               <label for="purchase_date">購入日</label>
               <input v-model="item.purchase_date" type="date"
@@ -67,6 +64,7 @@ export default {
    }
   },
 
+  
   methods: {
     handleCloseModal() {
       this.$emit('close-modal')
