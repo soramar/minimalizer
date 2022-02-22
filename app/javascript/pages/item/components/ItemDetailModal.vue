@@ -46,9 +46,9 @@
               <label for="category">カテゴリー</label>
               <div class="category-nav">
                 <select class="select-category" v-model="item.category" >
-                  <option>ファッション</option>
-                  <option>家具</option>
-                  <option>貴重品</option>
+                  <option value="clothes">服</option>
+                  <option value="furniture">家具</option>
+                  <option value="valuables">貴重品</option>
                 </select>
               </div>
             </div>

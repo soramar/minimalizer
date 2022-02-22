@@ -4,8 +4,7 @@
       <div class="col-4 bg-light rounded shadow m-3 p-3">
         <div class="h4">TODO</div>
         <div class="item-content">
-          <div
-            v-for="item in items" :key="item.id" :id="'item-' + item.id"
+          <div v-for="item in filterClothesItem" :key="item.id" :id="'item-'+  item.id"
             class="bg-white border shadow-sm rounded my-2 p-4"
             @click="handleShowItemDetailModal(item)">
             <span>{{ item.name }}</span>
@@ -14,9 +13,36 @@
         <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
       </div>
     </div>
+
+    <div class="d-flex">
+      <div class="col-4 bg-light rounded shadow m-3 p-3">
+        <div class="h4">TODO</div>
+        <div class="item-content" >
+          <ul v-for="item in filterFurnitureItem" :key="item.id" :id="'item-'   + item.id"
+            class="bg-white border shadow-sm rounded my-2 p-4"
+            @click="handleShowItemDetailModal(item)">
+            <span>{{item.name}}</span>
+          </ul>
+        </div>
+        <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
+      </div>
+    </div>
+    <div class="d-flex">
+      <div class="col-4 bg-light rounded shadow m-3 p-3">
+        <div class="h4">TODO</div>
+        <div class="item-content" >
+          <ul v-for="item in filterValuablesItem" :key="item.id" :id="'item-'   + item.id"
+            class="bg-white border shadow-sm rounded my-2 p-4"
+            @click="handleShowItemDetailModal(item)">
+            <span>{{item.name}}</span>
+          </ul>
+        </div>
+        <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
+      </div>
+    </div>
     <div class="text-center">
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
-  </div>
+   </div>
 
   <transition name="fade">
     <ItemDetailModal 
@@ -48,10 +74,30 @@ export default {
   },
   data() {
     return {
-      items: [],
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false,
+      items: []
+    }
+  },
+
+  computed: {
+    filterClothesItem() {
+      return this.items.filter(item => {
+       return  item.category ==="服"
+      }) 
+    },
+
+    filterFurnitureItem() {
+      return this.items.filter(item => {
+       return  item.category ==="家具"
+      }) 
+    },
+
+    filterValuablesItem() {
+      return this.items.filter(item => {
+       return  item.category ==="貴重品"
+      }) 
     }
   },
 
@@ -116,4 +162,5 @@ export default {
 .modal {
   display: block;
 }
+
 </style>

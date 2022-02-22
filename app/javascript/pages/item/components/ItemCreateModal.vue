@@ -14,9 +14,9 @@
               <label for="category">カテゴリー</label>
               <div class="category-nav">
                 <select class="select-category" v-model="item.category" >
-                  <option value="clothes">服</option>
-                  <option value="furniture">家具</option>
-                  <option value="valuables">貴重品</option>
+                  <option id=category.id>服</option>
+                  <option id=category.id>家具</option>
+                  <option id=category.id>貴重品</option>
                 </select>
               </div>
             </div>
@@ -56,7 +56,7 @@ export default {
     return {
       item: {
         name: '',
-        category: '',
+        category: '初期値',
         purchase_date: '',
         price: '',
         description: ''
