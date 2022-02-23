@@ -1,45 +1,47 @@
 <template>
   <div>
-    <div class="d-flex">
-      <div class="col-4 bg-light rounded shadow m-3 p-3">
-        <div class="h4">TODO</div>
-        <div class="item-content">
-          <div v-for="item in filterClothesItem" :key="item.id" :id="'item-'+  item.id"
-            class="bg-white border shadow-sm rounded my-2 p-4"
-            @click="handleShowItemDetailModal(item)">
-            <span>{{ item.name }}</span>
+    <div class="container">
+      <div class="d-inline-flex mt-4 ml-5">
+       <button class="btn btn-secondary " @click="handleShowItemCreateModal">
+       追加</button>
+    </div>
+
+      <div class="row">
+        <div class="col-md-3 col-sm-3 bg-light rounded shadow  m-5 p-3">
+          <div class="h5">服</div>
+          <div class="item-content">
+            <div v-for="item in filterClothesItem" :key="item.id" :id="'item-' + item.id"
+              class="bg-white border shadow-sm rounded my-2 p-4"
+              @click="handleShowItemDetailModal(item)">
+              <span>{{ item.name }}</span>
+            </div>
           </div>
         </div>
-        <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
+
+        <div class="col-md-3 col-sm-3 bg-light rounded shadow  m-5 p-3">
+          <div class="h5">家具</div>
+          <div class="item-content" >
+            <div v-for="item in filterFurnitureItem" :key="item.id"  :id="'item-' + item.id"
+              class="bg-white border shadow-sm rounded my-2 p-4"
+              @click="handleShowItemDetailModal(item)">
+              <span>{{item.name}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3 col-sm-3 bg-light rounded shadow m-5 p-3">
+          <div class="h4">貴重品</div>
+          <div class="item-content" >
+            <div v-for="item in filterValuablesItem" :key="item.id"  :id="'item-' + item.id"
+              class="bg-white border shadow-sm rounded my-2 p-4"
+              @click="handleShowItemDetailModal(item)">
+              <span>{{item.name}}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="d-flex">
-      <div class="col-4 bg-light rounded shadow m-3 p-3">
-        <div class="h4">TODO</div>
-        <div class="item-content" >
-          <ul v-for="item in filterFurnitureItem" :key="item.id" :id="'item-'   + item.id"
-            class="bg-white border shadow-sm rounded my-2 p-4"
-            @click="handleShowItemDetailModal(item)">
-            <span>{{item.name}}</span>
-          </ul>
-        </div>
-        <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
-      </div>
-    </div>
-    <div class="d-flex">
-      <div class="col-4 bg-light rounded shadow m-3 p-3">
-        <div class="h4">TODO</div>
-        <div class="item-content" >
-          <ul v-for="item in filterValuablesItem" :key="item.id" :id="'item-'   + item.id"
-            class="bg-white border shadow-sm rounded my-2 p-4"
-            @click="handleShowItemDetailModal(item)">
-            <span>{{item.name}}</span>
-          </ul>
-        </div>
-        <button class="btn btn-secondary" @click="handleShowItemCreateModal">タスクを追加</button>
-      </div>
-    </div>
     <div class="text-center">
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
    </div>
