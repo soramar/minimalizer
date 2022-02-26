@@ -24,9 +24,9 @@
               <div class="category-nav">
                 <select class="select-category" v-model="item.category">
                   <option value="" disabled>選択してください</option>
-                  <option id=category.id>服</option>
-                  <option id=category.id>家具</option>
-                  <option id=category.id>貴重品</option>
+                  <option>服</option>
+                  <option>家具</option>
+                  <option>貴重品</option>
                 </select>
               </div>
               <span class="text-danger">{{ errors[0] }}</span>

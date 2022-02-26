@@ -116,7 +116,7 @@ export default {
 
     handleCreateItem(item) {
       this.$axios.post('items', item )
-              .then(res => this.fetchItems(res.data),
+        .then(res => this.fetchItems(res.data),
         this.handleCloseItemCreateModal())
       .catch(error => console.log(error))     
     },
