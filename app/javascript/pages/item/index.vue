@@ -41,11 +41,11 @@
         </div>
       </div>
     </div>
-
+  
     <div class="text-center">
       <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
    </div>
-
+  
   <transition name="fade">
     <ItemDetailModal 
       v-if="isVisibleItemDetailModal"
@@ -54,7 +54,7 @@
       @update-item="handleUpdateItem"
       @close-modal="handleCloseItemDetailModal"/>
   </transition>
-
+  
   <transition name="fade">
     <ItemCreateModal
         v-if="isVisibleItemCreateModal"

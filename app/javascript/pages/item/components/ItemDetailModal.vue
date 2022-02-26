@@ -38,40 +38,62 @@
       <transition name="fade">
         <div class="modal-content" v-if="isVisibleItemUpdateModal">
           <div class="modal-body">
+            <ValidationObserver v-slot="{ invalid }">
             <div class="form-group">
-              <label for="name">タイトル</label>
+              <ValidationProvider rules="required|max:30" v-slot="{ errors }" name="名前">
+              <label for="name">タイトル
+                <span class="text-secondary">（必須）</span>
+              </label>
               <input v-model="item.name" type="text" class="form-control" id="name">
+              <span class="text-danger">{{ errors[0] }}</span>
+           </ValidationProvider>
             </div>
+          
             <div class="form-group">
-              <label for="category">カテゴリー</label>
+              <ValidationProvider rules="required" :skip-if-empty="false" v-slot="{ errors }" name="カテゴリー">
+              <label for="category">カテゴリー
+                <span class="text-secondary">（必須）</span>
+              </label>
               <div class="category-nav">
                 <select class="select-category" v-model="item.category" >
-                  <option value="clothes">服</option>
-                  <option value="furniture">家具</option>
-                  <option value="valuables">貴重品</option>
+                  <option id=category.id>服</option>
+                  <option id=category.id>家具</option>
+                  <option id=category.id>貴重品</option>
                 </select>
               </div>
+              <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
             </div>
+
             <div class="form-group">
               <label for="purchase_date">購入日</label>
               <input v-model="item.purchase_date" 
                type="date" class="form-control" id="purchase_date">
             </div>
+
             <div class="form-group">
+              <ValidationProvider rules="numeric" v-slot="{ errors }" name="金額">
               <label for="price">金額</label>
-              <input v-model="item.price" type="number" class="form-control" id="price">
+              <input v-model="item.price" type="text" class="form-control" id="price">
+              <span class="text-danger">{{ errors[0] }}</span>
+            </ValidationProvider>
             </div>
+
             <div class="form-group">
-              <label for="description">備考</label>
-              <textarea v-model="item.description" type="string" class="form-control" id="description">
-              </textarea>
+              <ValidationProvider rules="max:300" v-slot="{ errors }" name="備考">
+                <label for="description">備考</label>
+                <textarea v-model="item.description" type="string" class="form-control" id="description"></textarea>
+                <span class="text-danger">{{ errors[0] }}</span>
+              </ValidationProvider>
             </div>
+
             <div class="d-flex justify-content-between">
               <button class="btn btn-success" 
-              @click="handleUpdateItem">更新</button>
+              @click="handleUpdateItem" :disabled="invalid">更新</button>
               <button class="btn btn-secondary" @click="handleCloseModal">
                 閉じる</button>
             </div>
+          </ValidationObserver>
           </div>
         </div>
       </transition>
