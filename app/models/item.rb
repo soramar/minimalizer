@@ -1,5 +1,5 @@
 class Item < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, original: true
 
   validates :name, presence: true, length: { maximum: 30 }
   validates :category, inclusion: { in: ["服", "家具", "貴重品"] }

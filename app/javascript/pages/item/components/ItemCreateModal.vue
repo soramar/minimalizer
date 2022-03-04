@@ -82,7 +82,8 @@ export default {
         category: '',
         purchase_date: '',
         price: '',
-        description: ''
+        description: '',
+        user_id: this.user
      }
    }
   },
