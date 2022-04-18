@@ -2,16 +2,17 @@
   <div>
     <div class="container">
       <div class="d-inline-flex mt-4 ml-5">
-       <button class="btn btn-secondary " @click="handleShowItemCreateModal">
+       <button class="btn btn-secondary" @click="handleShowItemCreateModal">
        追加</button>
+       <h4>{{this.$route.params.id}}</h4>
+      </div>
     </div>
 
-      <div class="row">
+    <div class="row">
         <div class="col-md-3 col-sm-3 bg-light rounded shadow  m-5 p-3">
           <div class="h5">服</div>
           <div class="item-content">
-            <div v-for="item in filterClothesItem" :key="item.id" :id="'item-' + item.id"
-              class="bg-white border shadow-sm rounded my-2 p-4"
+            <div v-for="item in filterClothesItem" :key="item.id" :id="'item-' + item.id" class="bg-white border shadow-sm rounded my-2 p-4"
               @click="handleShowItemDetailModal(item)">
               <span>{{ item.name }}</span>
             </div>
@@ -39,12 +40,7 @@
             </div>
           </div>
         </div>
-      </div>
     </div>
-  
-    <div class="text-center">
-      <router-link :to="{ name: 'TopIndex' }" class="btn btn-dark mt-5">戻る</router-link>
-   </div>
   
   <transition name="fade">
     <ItemDetailModal 
@@ -79,10 +75,11 @@ export default {
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false,
-      items: []
+      items: [],
+      userAcountId: ''
     }
   },
-
+  
   computed: {
     filterClothesItem() {
       return this.items.filter(item => {
@@ -99,37 +96,38 @@ export default {
     filterValuablesItem() {
       return this.items.filter(item => {
        return  item.category ==="貴重品"
-      }) 
+      })
     }
-  },
+  }, 
 
   created () {
-    this.fetchItems();
+      this.fetchItems();
   },
 
   methods: {
     fetchItems() {
-      this.$axios.get("items")
-        .then(res => this.items = res.data)
+      this.$axios.get(`/api/items`)
+        .then(
+          res => this.items = res.data)
         .catch(err => console.log(err.status));
     },
-
+    
     handleCreateItem(item) {
-      this.$axios.post('items', item )
+      this.$axios.post(`/api/items`, item)
         .then(res => this.fetchItems(res.data),
         this.handleCloseItemCreateModal())
       .catch(error => console.log(error))     
     },
 
     handleUpdateItem(id, item) {
-      this.$axios.patch('items/' + id, item)
+      this.$axios.patch(`/api/items/` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(error => console.log(error)) 
     },
 
     handleDeleteItem(id, item) {
-      this.$axios.delete('items/' + id, item)
+      this.$axios.delete(`/api/items/` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));

@@ -9,7 +9,7 @@ import Vue from 'vue'
 import App from '../app.vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import router from '../router'
-import axios from '../plugins/axios'
+import axios from 'axios'
 import vuetify from 'vuetify'
 import '../plugins/veevalidate'
 

@@ -16,7 +16,6 @@
               </ValidationProvider>
             </div>
 
-
             <div class="form-group">
               <ValidationProvider rules="required" :skip-if-empty="false" v-slot="{ errors }" name="カテゴリー">
               <label for="category">カテゴリー
@@ -83,18 +82,19 @@ export default {
         purchase_date: '',
         price: '',
         description: '',
-        user_id: this.user
-     }
+        user_id: this.$route.params.id
+     },
    }
   },
 
   methods: {
+  
     handleCloseModal() {
       this.$emit('close-modal')
     },
     handleCreateItem() {
       this.$emit('create-item', this.item)
-    }
+    },
   }
 }
 </script>
