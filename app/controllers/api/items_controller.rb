@@ -1,14 +1,15 @@
 class Api::ItemsController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_item, only: [:show, :update, :destroy]
-
+  before_action :require_login
+  
   def index
     @items = Item.all
     render json: @items
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = Item.create(item_params)
     if @item.save
       render json: @item
     else

@@ -1,14 +1,11 @@
 <template>
   <div>
-    <user-form :user="user" @create-user="handleCreateUser"></user-form>
-    <div>
-      <router-view></router-view>
-    </div>
+    <user-form @click-user="handleCreateUser"></user-form>
   </div>
-  
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import UserForm from "./components/UserForm"
 
 export default {
@@ -16,19 +13,19 @@ export default {
   components: {
     UserForm
   },
-  data() {
-    return {
-      user: []
-    }
-  },
+  
   methods: {
-    handleCreateUser(user) {
-      this.$axios.post(`/api/users`, user)
-        .then(res => this.user = res.data,
-        　this.$router.push(`/login`))
-        .catch(err => console.log(err.status));
+   ...mapActions('user', ['createUser']),
+
+   async handleCreateUser(user) {
+    try {
+      await this.createUser(user)
+      this.$router.push({ path: '/login'})
+    } catch (error) {
+       console.log(error)
+      }
     }
-  },
+  }
 }
 </script>
 

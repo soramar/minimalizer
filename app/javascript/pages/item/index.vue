@@ -106,7 +106,11 @@ export default {
 
   methods: {
     fetchItems() {
-      this.$axios.get(`/api/items`)
+      this.$axios.get(`/api/items`, {
+        params:{
+          user_id: this.$route.params.id
+        }
+      })
         .then(
           res => this.items = res.data)
         .catch(err => console.log(err.status));
@@ -120,14 +124,14 @@ export default {
     },
 
     handleUpdateItem(id, item) {
-      this.$axios.patch(`/api/items/` + id, item)
+      this.$axios.patch(`/api/items` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(error => console.log(error)) 
     },
 
     handleDeleteItem(id, item) {
-      this.$axios.delete(`/api/items/` + id, item)
+      this.$axios.delete(`/api/items` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));

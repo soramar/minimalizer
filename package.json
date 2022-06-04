@@ -2,6 +2,7 @@
   "name": "minimalizer",
   "private": true,
   "dependencies": {
+    "@popperjs/core": "^2.11.5",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -33,5 +34,8 @@
     "eslint-plugin-vue": "^8.4.1",
     "webpack": "^4.46.0",
     "webpack-dev-server": "^3"
+  },
+  "rules": {
+    "no-console": 0
   }
 }

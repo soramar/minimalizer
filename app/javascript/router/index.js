@@ -14,7 +14,7 @@ const router = new Router({
     {
       path: '/',
       component: TopIndex,
-      name: 'TopIndex',
+      name: 'TopIndex'
     },
     {
       path: '/login',
@@ -24,19 +24,14 @@ const router = new Router({
     {
       path: `/items/:id`,
       component: ItemIndex,
-      name: 'ItemIndex',
+      name: 'ItemIndex'
     },
     {
       path: '/users',
       component: UserNew,
-      name: 'UserNew',
-      children: [
-        
-        
-      ]
-    },
-    
-  ],
+      name: 'UserNew'
+    }
+  ]
 })
 
-export default router
+export default router;
