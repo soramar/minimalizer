@@ -6,7 +6,7 @@
         <div class="form-group">
           <ValidationProvider rules="required|email" v-slot="{ errors }" name="メールアドレス">
             <label>メールアドレス</label>
-            <input class="form-control" v-model="user.email" type="email">
+            <input class="form-control" v-model="user.email" type="email" id="email_id">
             <span class="text-danger">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
@@ -14,7 +14,7 @@
         <div class="form-group">
           <ValidationProvider rules="required|min:6|alpha_num" v-slot="{ errors }" name="パスワード">
             <label>パスワード</label>
-            <input class="form-control" v-model="user.password" type="password">
+            <input class="form-control" v-model="user.password" type="password" id="password_id">
           <span class="text-danger">{{ errors[0] }}</span>
           </ValidationProvider>
         </div>
