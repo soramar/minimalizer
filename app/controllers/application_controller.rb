@@ -1,10 +1,9 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
-  before_action :require_login
+  protect_from_forgery with: :null_session  
 
   protected
 
   def not_authenticated
-    redirect_to 
+    redirect_to login_url, alert: 'ログインしてください'
   end
 end
