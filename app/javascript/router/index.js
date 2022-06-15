@@ -22,9 +22,9 @@ const router = new Router({
       name: 'Login'
     },
     {
-      path: `/items/:id`,
+      path: `/items/:userId`,
       component: ItemIndex,
-      name: 'ItemIndex'
+      name: 'ItemIndex',
     },
     {
       path: '/users',

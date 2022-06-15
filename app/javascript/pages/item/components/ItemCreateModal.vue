@@ -82,7 +82,7 @@ export default {
         purchase_date: '',
         price: '',
         description: '',
-        user_id: this.$route.params.id
+        user_id: this.$route.params.userId
      },
    }
   },

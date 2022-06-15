@@ -35,13 +35,10 @@ export default {
    async handleLogin(user){
      try{
        await this.createUserId(user)
-       this.$router.push({ path: `/items/${this.userId}` })
-       console.log(this.userId)
-       console.log(this.loggedIn)
+       this.$router.push({ path: `/items/${this.userId}`})
      } catch (error) {
         console.log(error)
         alert('email又はパスワードに誤りがあります')
-        console.log(this.loggedIn)
       }
     }
   }

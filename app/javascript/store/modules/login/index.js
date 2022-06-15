@@ -21,6 +21,7 @@ import axios from 'axios'
       return axios.post('/api/login', user)
       .then(res => {
         commit('setUserId', res.data)
+        console.log(res.data)
       })
     }
   }
