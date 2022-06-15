@@ -4,7 +4,7 @@ class Api::ItemsController < ApplicationController
   before_action :require_login
   
   def index
-    @items = Item.all
+    @items = Item.all.includes(:user)
     render json: @items
   end
 
@@ -18,6 +18,7 @@ class Api::ItemsController < ApplicationController
   end
 
   def show
+    
     render json: @item
   end
 

@@ -4,12 +4,12 @@
       <div class="d-inline-flex mt-4 ml-5">
        <button class="btn btn-secondary" @click="handleShowItemCreateModal">
        追加</button>
-       <h4>{{this.$route.params.id}}</h4>
+       <h4>{{this.$route.params.userId}}</h4>
       </div>
     </div>
 
     <div class="row">
-        <div class="col-md-3 col-sm-3 bg-light rounded shadow  m-5 p-3">
+        <div class="col-md-3 col-sm-3 bg-light rounded shadow m-5 p-3">
           <div class="h5">服</div>
           <div class="item-content">
             <div v-for="item in filterClothesItem" :key="item.id" :id="'item-' + item.id" class="bg-white border shadow-sm rounded my-2 p-4"
@@ -70,50 +70,49 @@ export default {
     ItemDetailModal,
     ItemCreateModal
   },
+  
   data() {
     return {
       itemDetail: {},
       isVisibleItemDetailModal: false,
       isVisibleItemCreateModal: false,
-      items: [],
-      userAcountId: ''
+      items: []
     }
   },
   
   computed: {
+    changeDataUserId(){
+      return this.$route.params.userId - 0
+    },
+
     filterClothesItem() {
       return this.items.filter(item => {
-       return  item.category ==="服"
+       return  item.category === "服" && item.user_id === this.changeDataUserId
       }) 
     },
 
     filterFurnitureItem() {
       return this.items.filter(item => {
-       return  item.category ==="家具"
+       return  item.category === "家具" && item.user_id === this.changeDataUserId
       }) 
     },
 
     filterValuablesItem() {
       return this.items.filter(item => {
-       return  item.category ==="貴重品"
+       return  item.category === "貴重品" && item.user_id === this.changeDataUserId
       })
     }
   }, 
 
-  created () {
-      this.fetchItems();
+  created() {
+    this.fetchItems()
   },
 
   methods: {
     fetchItems() {
-      this.$axios.get(`/api/items`, {
-        params:{
-          user_id: this.$route.params.id
-        }
-      })
-        .then(
-          res => this.items = res.data)
-        .catch(err => console.log(err.status));
+      this.$axios.get(`/api/items`)
+      .then(res => this.items = res.data)
+      .catch(err => console.log(err.status));
     },
     
     handleCreateItem(item) {
@@ -124,14 +123,14 @@ export default {
     },
 
     handleUpdateItem(id, item) {
-      this.$axios.patch(`/api/items` + id, item)
+      this.$axios.patch(`/api/items/` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(error => console.log(error)) 
     },
 
     handleDeleteItem(id, item) {
-      this.$axios.delete(`/api/items` + id, item)
+      this.$axios.delete(`/api/items/` + id, item)
       .then(res => this.fetchItems(res.data),
         this.handleCloseItemDetailModal())
       .catch(err => console.log(err.status));
@@ -166,5 +165,4 @@ export default {
 .modal {
   display: block;
 }
-
 </style>
